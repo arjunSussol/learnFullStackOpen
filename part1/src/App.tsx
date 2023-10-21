@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { Statistics } from './Statistics';
 import { Button } from './Button';
+import { Anecdotes } from './Anecdotes';
 
 function App() {
   const[feedback, setFeedback] = useState({good: 0, nuetral: 0, bad: 0});
@@ -42,6 +43,7 @@ function App() {
 
   return (
     <>
+      <Anecdotes/>
       <h1> give feedback</h1>
       <Button handleClick={handleGoodFeedback} label='good'/>
       <Button handleClick={handleNuetralFeedback} label='nuetral'/>
