@@ -1,5 +1,6 @@
 import './App.css'
 import { Course } from './Course'
+import { Phonebook } from './Phonebook'
 
 const App = () => {
   const courses = [
@@ -48,6 +49,7 @@ const App = () => {
   ]
   return(
     <>
+      <Phonebook/>
       <Course courses={courses} />
     </>
   )
