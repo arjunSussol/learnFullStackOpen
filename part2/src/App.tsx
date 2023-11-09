@@ -1,4 +1,5 @@
 import './App.css'
+import { Country } from './Country'
 import { Course } from './Course'
 import { Phonebook } from './Phonebook'
 
@@ -49,6 +50,7 @@ const App = () => {
   ]
   return(
     <>
+      <Country/>
       <Phonebook/>
       <Course courses={courses} />
     </>
