@@ -6,7 +6,7 @@ import { Notification } from "./Notification";
 type Person = {
     name: string;
     number: string;
-    id: number;
+    id: string;
 }
 
 export const Phonebook = () => {
@@ -29,7 +29,7 @@ export const Phonebook = () => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const person: Person = persons?.find(({name}) => name === newName.name) ?? {name: '', number: '', id: 0};
+        const person: Person = persons?.find(({name}) => name === newName.name) ?? {name: '', number: '', id: ''};
         if (person.name) {
             if (person.number !== newName.number) {
                 const isUpdate: boolean = confirm(`${person.name} is already added to phonebook, replace the old number ${person.number} with new one ${newName.number}?`);
@@ -66,11 +66,11 @@ export const Phonebook = () => {
         }
     }
 
-    const handleDelete = (id: number) => {
+    const handleDelete = (id: string) => {
         const nameToBeDeleted: Person = persons.find((person: Person) => person.id === id ) ?? {name: '', number: '', id};
         if (confirm(`Delete ${nameToBeDeleted.name}?`)) {
             phonebookService.deleteById(id).then(response => {
-                if (response.status === 200) {
+                if (response.status === 204) {
                     setPersons(persons.filter((person: Person) => person.id !== id));
                 }
             }).catch(error => {
