@@ -10,7 +10,7 @@ export const Notification = ({message}: {message: string}) => {
 
 const errorStyle: React.CSSProperties = {
     backgroundColor: 'lightgrey',
-    color: 'green',
+    color: 'red',
     fontSize: 20,
     borderStyle: 'solid',
     borderRadius: 5,

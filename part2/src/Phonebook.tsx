@@ -41,6 +41,7 @@ export const Phonebook = () => {
                             setPersons(persons.filter((n: Person) => n.id !== person.id).concat(updatedPerson));
                             setErrorMessage(`${person.name}'s number is updated!`);
                         })
+                        .catch(error => setErrorMessage(error.response.data.error));
                 }
             }
         } else {
@@ -51,7 +52,7 @@ export const Phonebook = () => {
                     setErrorMessage(`Added ${newName.name}`);
                 })
                 .catch(error => {
-                    setErrorMessage(error.message);
+                    setErrorMessage(error.response.data.error);
             });
         }
     }
