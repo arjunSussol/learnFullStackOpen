@@ -20,15 +20,22 @@ const App = () => {
     event.preventDefault()
     try {
       const user = await loginService.login({ username, password })
+      window.localStorage.setItem('loggedBlogUser', JSON.stringify(user))
       setUser(user)
-      setUsername('')
-      setPassword('')
-      
     } catch (error) {
       
-    }
-    
+    }  
 
+  }
+
+  const handleLogout = () => {
+    const loggedUser = window.localStorage.getItem('loggedBlogUser')
+    if (loggedUser) {
+      window.localStorage.removeItem('loggedBlogUser')
+      setUser(null)
+      setUsername('')
+      setPassword('')
+    }
   }
 
   const loginForm = () => (
@@ -41,15 +48,22 @@ const App = () => {
     />
   )
 
+  const blogForm = () => {
+    return(
+      <div>
+        <h2>blogs</h2>
+        <strong>{user.name} is logged in <button onClick={handleLogout}>Logout</button></strong>
+        {blogs.map(blog =>
+        <Blog key={blog.id} blog={blog} />
+        )}
+      </div>
+    )
+  }
+
   return (
     <div>
       {
-        !user ? loginForm() : <div>
-          <h2>blogs</h2>
-          {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} />
-          )}
-        </div>
+        !user ? loginForm() : blogForm()
       }
       
     </div>
