@@ -49,10 +49,24 @@ const App = () => {
     }
   }
 
-  const updateExistingBlog = async blogUpdate => {
-    const id = blogUpdate.id
-    const updatedBlog = await blogService.update(id, blogUpdate)
-    setBlogs(blogs.map(blog => blog.id === id ? updatedBlog : blog))
+  const updateExistingBlog = async id => {
+    try {
+      const blg = blogs.find(blog => blog.id === id)
+      console.log('blg ', blg)
+      const like = blg.likes + 1
+      const user = blg.user.id ?? blg.user
+
+      const blogToBeUpdated = { ...blg, likes: like, user }
+      console.log('blogToBeUpdated ', blogToBeUpdated)
+      const updatedBlog = await blogService.update(id, blogToBeUpdated)
+      setBlogs(blogs.map(blog => blog.id === id ? updatedBlog : blog))
+    } catch (error) {
+      console.log('error ', error)
+      setErrorMessage(error.response.data.error)
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
   }
 
   const handleLogin = async event => {
@@ -100,7 +114,7 @@ const App = () => {
           <BlogForm createBlog={addNewBlog}/>
         </Togglable>
         {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} user={user.name} updateBlog={updateExistingBlog} />
+        <Blog key={blog.id} blog={blog} user={user.name} updateBlog={() => updateExistingBlog(blog.id)} />
         )}
       </div>
     )
