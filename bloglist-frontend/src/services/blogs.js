@@ -29,8 +29,6 @@ const update = async (id, blogObject) => {
     }
   }
 
-  console.log('blogObject ', blogObject)
-  console.log('config ', config)
   const request = await axios.put(`${baseUrl}/${id}`, blogObject, config)
   return request.data
 }

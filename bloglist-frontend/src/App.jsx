@@ -55,12 +55,10 @@ const App = () => {
   const updateExistingBlog = async id => {
     try {
       const blg = blogs.find(blog => blog.id === id)
-      console.log('blg ', blg)
       const like = blg.likes + 1
       const user = blg.user.id ?? blg.user
 
       const blogToBeUpdated = { ...blg, likes: like, user }
-      console.log('blogToBeUpdated ', blogToBeUpdated)
       const updatedBlog = await blogService.update(id, blogToBeUpdated)
       setBlogs(blogs.map(blog => blog.id === id ? updatedBlog : blog))
     } catch (error) {
