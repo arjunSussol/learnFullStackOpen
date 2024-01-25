@@ -64,7 +64,18 @@ const App = () => {
       const updatedBlog = await blogService.update(id, blogToBeUpdated)
       setBlogs(blogs.map(blog => blog.id === id ? updatedBlog : blog))
     } catch (error) {
-      console.log('error ', error)
+      setErrorMessage(error.response.data.error)
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
+  }
+
+  const removeBlog = async id => {
+    try {
+      await blogService.deleteBlogByID(id)
+      setBlogs(blogs.filter(blog => blog.id !== id))
+    } catch (error) {
       setErrorMessage(error.response.data.error)
       setTimeout(() => {
         setErrorMessage(null)
@@ -117,7 +128,12 @@ const App = () => {
           <BlogForm createBlog={addNewBlog}/>
         </Togglable>
         {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} user={user.name} updateBlog={() => updateExistingBlog(blog.id)} />
+          <Blog 
+            key={blog.id}
+            blog={blog}
+            user={user.name}
+            updateBlog={() => updateExistingBlog(blog.id)}
+            deleteBlog={removeBlog} />
         )}
       </div>
     )
