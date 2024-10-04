@@ -13,7 +13,7 @@ const Blog = ({ blog, user, updateBlog, deleteBlog }) => {
       <div className="blog">
         {blog.title} {blog.author}<button onClick={handleVisibility}>{visible ? 'Hide' : 'Show'}</button>
         {visible && 
-          <div>
+          <div className="visibleBlog">
             <li>{blog.url}</li>
             <li>{blog.likes} <button onClick={updateBlog}>like</button></li>
             <li>{user}</li>
