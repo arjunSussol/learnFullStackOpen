@@ -80,6 +80,18 @@ describe('event handling using button', () => {
         expect(container.querySelector('.visibleBlog')).not.toBeInTheDocument();
         expect(btnShow).toHaveTextContent(/show/i);
     })
+
+    test('click like button twice', async() => {
+        const user = userEvent.setup();
+        const showBtn = screen.getByRole('button', { name: /show/i })
+        await user.click(showBtn);
+        expect(container.querySelector('.visibleBlog')).toBeInTheDocument();
+
+        const likeBtn = screen.getByRole('button', { name: /like/i })
+        await user.click(likeBtn);
+        await user.click(likeBtn);
+        expect(updateBlog.mock.calls).toHaveLength(2);
+    })
 })
 
 
