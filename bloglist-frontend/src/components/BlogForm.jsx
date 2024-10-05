@@ -25,14 +25,14 @@ export const BlogForm = ({ createBlog }) => {
                     <label htmlFor="title">Title</label>
                     <input id="title" type="text" value={title} onChange={({ target }) => setTitle(target.value)} />
                 </div>
-                <div>
+                {/* <div>
                     <label htmlFor="author">Author</label>
                     <input id="author" type="text" value={author} onChange={({ target }) => setAuthor(target.value)} />
                 </div>
                 <div>
                     <label htmlFor="url">URL</label>
                     <input id="url" type="text" value={url} onChange={({ target }) => setUrl(target.value)} />
-                </div>
+                </div> */}
                 <button type="submit">Create</button>
             </form>
         </div>
